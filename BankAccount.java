@@ -26,15 +26,17 @@ import java.util.Calendar;
 public class BankAccount {
 
     /**
-     * Static counter to generate unique account numbers.
+     * Static counter: used to assign a unique, incrementing account number
+     * to each new BankAccount instance. Starts from 100000.
      */
     private static int nextAccountNumber = 100000; // Start from this base number
 
     /**
      * Instance variables:
-     * accountNumber: the unique account number of this bank account.
+     * accountNumber: the unique account number assigned to this bank account.
      * balance: the current balance of the bank account.
-     * transactions: a StringBuilder used to store the transaction history.
+     * transactions: a StringBuilder used to store the transaction history, 
+     *               including timestamps and descriptions.
      */
     private String accountNumber;
     private double balance;
@@ -42,8 +44,9 @@ public class BankAccount {
     
     /**
      * Default constructor:
-     * Constructs a new BankAccount with a balance of $0.00.
-     * Initializes a unique account number and starts the transaction log.
+     * Constructs a new BankAccount with an initial balance of $0.00.
+     * Automatically generates a unique account number and starts the 
+     * transaction log with the creating entry.
      */
     public BankAccount() {
         this.accountNumber = generateAccountNumber();
@@ -55,9 +58,12 @@ public class BankAccount {
     /**
      * Overloaded constructor:
      * Constructs a new BankAccount with the specified initial balance.
-     * If the initial balance is negative, it will default to $0.00.
+     * 
+     * If the provided balance is negative, the account is initialized with $0.00,
+     * and a transaction log entry is recorded to reflect the adjustment.
+     * A unique account number is automatically generated.
      *
-     * @param initialBalance the initial amount to deposit into the account
+     * @param initialBalance the starting balance for the account
      */
     public BankAccount(double initialBalance) {
         this.accountNumber = generateAccountNumber();
@@ -72,10 +78,11 @@ public class BankAccount {
     }
 
     /**
-     * Generates a new unique incrementing account number
-     * using an auto-incremented counter.
-     *
-     * @return the generated account number as a string
+     * Generates a new unique account number using an auto-incrementing counter.
+     * The account number is returned as a string, prefixed with "ACCT" followed
+     * by a numeric value that increases with each new account.
+     * 
+     * @return a unique account number as a string
      */
     private String generateAccountNumber() {
         return "ACCT" + (nextAccountNumber++); 
@@ -84,9 +91,10 @@ public class BankAccount {
     /**
      * Method to deposit money:
      * Deposits the specified amount into the account.
-     * The deposit is ignored if the amount is not positive.
+     * If the amount is less than or equal to zero, the deposit is ignored
+     * and a transaction entry is logged indicating the invalid attempt.
      *
-     * @param amountIn the amount to deposit
+     * @param amountIn the amount to deposit (must be positive)
      */
     public void deposit(double amountIn) {
         if (amountIn <= 0) {
@@ -100,10 +108,12 @@ public class BankAccount {
     /**
      * Method to withdraw money:
      * Withdraws the specified amount from the account.
-     * The withdrawal is ignored if the amount is not positive or if
-     * there are insufficient funds.
+     * If the amount is less than or equal to zero, or if there are insufficent funds,
+     * the withdrawal is ignored and a transaction entry is logged to indicate the 
+     * reason.
      *
-     * @param amountOut the amount to withdraw
+     * @param amountOut the amount to withdraw (must be positive and less than or equal 
+     *                  to the current balance)
      */
     public void withdraw(double amountOut) {
         if (amountOut <= 0) {
@@ -122,7 +132,7 @@ public class BankAccount {
      * Getter method: get current balance
      * Returns the current balance of the account.
      *
-     * @return the balance as a double
+     * @return the current account balance
      */
     public double getBalance() {
         return balance;
@@ -130,9 +140,9 @@ public class BankAccount {
 
     /**
      * Getter method: get full transaction history
-     * Returns the full transaction statement as a string.
+     * Returns the full transaction history for this account as a string.
      *
-     * @return the transaction history
+     * @return a string representing the complete transaction statement
      */
     public String getStatement() {
         return transactions.toString();
@@ -140,19 +150,20 @@ public class BankAccount {
 
     /**
      * Getter method: get account number 
-     * Returns the unique account number for this account.
+     * Returns the unique account number assigned to this account.
      *
-     * @return the account number
+     * @return the account number as a string
      */
     public String getAccountNumber() {
         return accountNumber;
     } 
-    
+
     /**
      * Helper method: log transaction with timestamp
      * Appends a timestamped message to the transaction history.
-     *
-     * @param message the message to log
+     * The timestamp follows the yyyy-MM-dd HH:mm:ss format
+     * 
+     * @param message the transaction message to log
      */
     private void logTransaction(String message) {
         Calendar now = Calendar.getInstance();
