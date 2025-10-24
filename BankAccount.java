@@ -52,7 +52,8 @@ public class BankAccount {
         this.accountNumber = generateAccountNumber();
         this.balance = 0.0;
         this.transactions = new StringBuilder();
-        logTransaction("Account created with balance: $0.00");
+        // logTransaction("Account created with balance: $0.00");
+        logTransaction("Account " + this.accountNumber + " created with balance: $0.00");
     }
 
     /**
@@ -73,7 +74,8 @@ public class BankAccount {
             logTransaction("Attempted to create account with negative balance. Set to $0.00");
         } else {
             this.balance = initialBalance;
-            logTransaction("Account created with balance: $" + String.format("%.2f", initialBalance));
+            // logTransaction("Account created with balance: $" + String.format("%.2f", initialBalance));
+            logTransaction("Account " + this.accountNumber + " created with balance: $" + String.format("%.2f", initialBalance));
         }
     }
 

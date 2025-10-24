@@ -9,7 +9,9 @@ public class Application {
         // int option = 0;
         // double amount = 0.0;
         BankAccount account = new BankAccount(100);
-        System.out.println("New Account Balance: " + account.getBalance());
+        // System.out.println("New Account Balance: " + account.getBalance());
+        System.out.println("New account " + account.getAccountNumber() 
+                            + " created with balance: " + account.getBalance());
         System.out.println("Withdrawing 200");
         account.withdraw(200);
         System.out.println("New Balance: " + account.getBalance());
@@ -35,6 +37,8 @@ public class Application {
         System.out.println("Account 2 Number: " + account2.getAccountNumber() + "   Balance: " + account2.getBalance());  // print account 2
         System.out.println("Account 3 Number: " + account3.getAccountNumber() + "   Balance: " + account3.getBalance());  // print account 3
         System.out.println("Account 4 Number: " + account4.getAccountNumber() + "   Balance: " + account4.getBalance());  // print account 4
+        System.out.println(account3.getStatement());
+        System.out.println(account4.getStatement());
     }
 
 }
