@@ -17,7 +17,7 @@
  * <p>This class is designed to be used with an external application tester.</p>
  *
  * @author Huilin Reid
- * @author Lab 4 Partner
+ * @author Long Him Cheung
  * @since 10-7-2025
  */
 
