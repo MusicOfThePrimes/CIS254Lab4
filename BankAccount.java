@@ -179,10 +179,12 @@ public class BankAccount {
     private void logTransaction(String message) {
         Calendar now = Calendar.getInstance();
 
-        // timestamp format: yyyy-MM-dd HH:mm:ss  Comment: timestamp are same for test due to operations run extremely fast
+        // Version 1 timestamp format: yyyy-MM-dd HH:mm:ss  
+        // Note: with this format, timestamp are same for test due to operations run extremely fast
         // String timestamp = String.format("%1$tF %1$tT", now);  
         
-        // timestamp format (including milliseconds)
+        // Version 2 timestamp format: yyyy-MM-dd HH:mm:ss.SSS
+        // Note: here we include milliseconds so we could see the difference in timestamps
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
         String timestamp = sdf.format(now.getTime());  
         transactions.append("[").append(timestamp).append("] ").append(message).append("\n");
