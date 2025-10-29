@@ -22,6 +22,7 @@
  */
 
 import java.util.Calendar;
+import java.text.SimpleDateFormat;
 
 public class BankAccount {
 
@@ -52,7 +53,6 @@ public class BankAccount {
         this.accountNumber = generateAccountNumber();
         this.balance = 0.0;
         this.transactions = new StringBuilder();
-        // logTransaction("Account created with balance: $0.00");
         logTransaction("Account " + this.accountNumber + " created with balance: $0.00");
     }
 
@@ -74,7 +74,6 @@ public class BankAccount {
             logTransaction("Attempted to create account with negative balance. Set to $0.00");
         } else {
             this.balance = initialBalance;
-            // logTransaction("Account created with balance: $" + String.format("%.2f", initialBalance));
             logTransaction("Account " + this.accountNumber + " created with balance: $" + String.format("%.2f", initialBalance));
         }
     }
@@ -141,6 +140,16 @@ public class BankAccount {
     }
 
     /**
+     * Getter method: get formatted current balance
+     * Returns the formatted current balance of the account.
+     *
+     * @return the formatted current account balance (e.g., "$50.00")
+     */
+    public String getFormattedBalance() {
+        return String.format("$%.2f", balance);
+    }
+
+    /**
      * Getter method: get full transaction history
      * Returns the full transaction history for this account as a string.
      *
@@ -169,7 +178,13 @@ public class BankAccount {
      */
     private void logTransaction(String message) {
         Calendar now = Calendar.getInstance();
-        String timestamp = String.format("%1$tF %1$tT", now);  // yyyy-MM-dd HH:mm:ss
+
+        // timestamp format: yyyy-MM-dd HH:mm:ss  Comment: timestamp are same for test due to operations run extremely fast
+        // String timestamp = String.format("%1$tF %1$tT", now);  
+        
+        // timestamp format (including milliseconds)
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
+        String timestamp = sdf.format(now.getTime());  
         transactions.append("[").append(timestamp).append("] ").append(message).append("\n");
     }
 }
